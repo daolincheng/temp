@@ -1,6 +1,4 @@
 <#
-TA1234dacheng59_
-Vwh4w0f6?:,L7;7x]s
 .SYNOPSIS
     Script to attempt to replace expired certificate on service fabric cluster
 
