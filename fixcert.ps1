@@ -159,6 +159,7 @@ $scriptBlock = { param($clusterDataRootPath, $oldThumbprint, $newThumbprint, $ce
         #restart these services
         Write-Host "$env:computername : Starting services " -ForegroundColor Green
         StartServiceFabricServices
+        return
     }
 
     #config files we need
