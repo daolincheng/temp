@@ -1,8 +1,4 @@
 <#
-TA1234dacheng69_
-a3ioMPK6DWGP{zGK7d
-TA1234dacheng97_
-ID6~L626Dg5Nq03{{!
 .SYNOPSIS
     Script to attempt to replace expired certificate on service fabric cluster
 
@@ -31,6 +27,8 @@ ID6~L626Dg5Nq03{{!
 .PARAMETER localOnly
     switch to optionally run script only on local node.
     use when there are connectivity issues between nodes by rdp'ing to each node and running with this switch.
+.PARAMETER restartOnly
+    switch to only start services stopped.
 
 .LINK
     iwr https://raw.githubusercontent.com/Azure/Service-Fabric-Troubleshooting-Guides/master/Scripts/FixExpiredCert.ps1 -out $pwd/FixExpiredCert.ps1
@@ -50,6 +48,7 @@ Param(
     [string[]]$nodeIpArray = @("10.0.2.19", "10.0.2.20", "10.0.2.21" ),
     [switch]$cacheCredentials,
     [switch]$localOnly
+    [switch]$restartOnly
 )
 
 $error.Clear()
@@ -153,6 +152,13 @@ $scriptBlock = { param($clusterDataRootPath, $oldThumbprint, $newThumbprint, $ce
             }
 
         } While ($bootstrapService.Status -ne "Running")
+    }
+    
+    if($restartOnly)
+    {
+        #restart these services
+        Write-Host "$env:computername : Starting services " -ForegroundColor Green
+        StartServiceFabricServices
     }
 
     #config files we need
@@ -267,10 +273,6 @@ $scriptBlock = { param($clusterDataRootPath, $oldThumbprint, $newThumbprint, $ce
     Write-Host "$env:computername : Updating Node configuration with new cert: $newThumbprint" -ForegroundColor Green
     New-ServiceFabricNodeConfiguration -FabricDataRoot $clusterDataRootPath -FabricLogRoot $logRoot -ClusterManifestPath $newManifest -InfrastructureManifestPath $newInfraManifest
     Write-Host "$env:computername : Updating Node configuration with new cert: complete" -ForegroundColor Green
-
-    #restart these services
-    Write-Host "$env:computername : Starting services " -ForegroundColor Green
-    StartServiceFabricServices
 }
 
 if ($localOnly) {
