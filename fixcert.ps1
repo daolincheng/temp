@@ -41,7 +41,7 @@ Param(
     [string]$oldThumbprint = "lodes-intwus2..familymetal-corp.azclient.ms",
     [ValidateNotNullOrEmpty()]
     #[string]$newThumbprint = "nodes-intwus2.familymetal.azclient.ms",
-    [string]$newThumbprint = "lodes-intwus2.familymetal-corp.azclient.ms",
+    [string]$newThumbprint = "zodes-intwus2.familymetal-corp.azclient.ms",
     [ValidateNotNullOrEmpty()]
     [string]$certStoreLocation = 'Cert:\LocalMachine\My\',
     [ValidateNotNullOrEmpty()]
