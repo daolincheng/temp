@@ -49,7 +49,7 @@ Param(
     [ValidateNotNullOrEmpty()]
     [string[]]$nodeIpArray = @("10.0.2.19", "10.0.2.20", "10.0.2.21" ),
     [switch]$cacheCredentials,
-    [switch]$localOnly
+    [switch]$localOnly,
     [switch]$restartOnly
 )
 
